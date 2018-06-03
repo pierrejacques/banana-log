@@ -1,39 +1,46 @@
 <template>
     <div id="app">
-        <header>
-            <h1>Banana log</h1>
-        </header>
-        <main>
+        <app-header id="app-header"/>
+        <main class="main">
             <record-list />
         </main>
-        <a class="add">
-        
-        </a>
     </div>
 </template>
 
 <script>
-import RecordList from './components/RecordList.vue';
+import AppHeader from '@/components/AppHeader';
+import RecordList from '@/components/RecordList';
 
 export default {
     name: 'App',
     components: {
+        'app-header': AppHeader,
         'record-list': RecordList,
     },
 }
 </script>
 
 <style>
-body {
-    margin: 0;
-}
+@import url(./assets/less/index.less);
+@import url(./assets/iconfont/iconfont.css);
 
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+}
+</style>
+
+<style lang="less" scoped>
+@header-h: 50px;
+#app-header {
+    position: fixed;
+    height: @header-h;
+    line-height: @header-h;
+    width: 100vw;
+}
+.main {
+    padding-top: @header-h;
 }
 </style>
