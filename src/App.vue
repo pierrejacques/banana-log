@@ -1,28 +1,32 @@
 <template>
     <div id="app">
-        <app-header id="app-header"/>
+        <app-header id="app-header" :title="title"/>
         <main class="main">
-            <record-list />
+            <router-view @changeTitle="(t) => { title = t }"/>
         </main>
     </div>
 </template>
 
 <script>
 import AppHeader from '@/components/AppHeader';
-import RecordList from '@/components/RecordList';
 
 export default {
     name: 'App',
     components: {
         'app-header': AppHeader,
-        'record-list': RecordList,
+    },
+    data() {
+        return {
+            title: '',
+        };
     },
 }
 </script>
 
-<style>
-@import url(./assets/less/index.less);
+<style lang="less">
+@import url(./assets/less/styles.less);
 @import url(./assets/iconfont/iconfont.css);
+@import url(./assets/less/variables.less);
 
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -30,16 +34,14 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
 }
-</style>
 
-<style lang="less" scoped>
-@header-h: 50px;
 #app-header {
     position: fixed;
     height: @header-h;
     line-height: @header-h;
     width: 100vw;
 }
+
 .main {
     padding-top: @header-h;
 }

@@ -1,12 +1,13 @@
 <template>
-    <header class="header shadow">
-        <h1>Banana log</h1>
+    <header class="header shadow main-bg" @touch-start="(e) => e.stopPragation()">
+        <h1>{{title || '香蕉日记'}}</h1>
     </header> 
 </template>
 
 <script>
 export default {
     name: 'app-header',
+    props: ['title'],
 }
 </script>
 
@@ -14,7 +15,6 @@ export default {
 .header {
     font-size: 20px;
     font-weight: bolder;
-    background: #fdc73d
 }
 </style>
 

@@ -88,7 +88,7 @@ export default {
     }
     .icon {
         width: 60px;
-        font-size: 35px;
+        font-size: 40px;
         text-align: center;
     }
     .content {

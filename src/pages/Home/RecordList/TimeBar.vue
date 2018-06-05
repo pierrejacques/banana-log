@@ -24,7 +24,7 @@ export default {
                 return '今天';
             }
             if (str === yesterday) {
-                return '昨天';
+                return '昨天35';
             }
             return str;
         }
@@ -34,7 +34,7 @@ export default {
 
 <style lang="less" scoped>
 .time-bar {
-    @h: 50px;
+    @h: 35px;
     line-height: @h;
     height: @h;
     width: 100%;
