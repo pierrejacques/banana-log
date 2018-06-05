@@ -13,28 +13,39 @@
             :key="idx" 
             :style="type.style"
             :name="type.name"
-            @click="$emit('open', type)"
+            @click="selectType(type)"
         />
         <div v-if="!isFolded" class="mask" @click="showTypes"/>
     </div>
 </template>
 
 <script>
+import DataCreator from './Creators/DataCreator';
+import MealCreator from './Creators/MealCreator';
+import MessageCreator from './Creators/MessageCreator';
+import OuttingCreator from './Creators/OuttingCreator';
+import ShittingCreator from './Creators/ShittingCreator';
+
 const types = [{
     name: '数据',
     icon: 'measurement',
+    component: DataCreator,
 }, {
     name: '进食',
     icon: 'meal',
+    component: MealCreator,
 }, {
     name: '排便',
     icon: 'shit',
+    component: MessageCreator,
 }, {
     name: '出行',
     icon: 'location',
+    component: OuttingCreator,
 }, {
     name: '消息',
     icon: 'message',
+    component: ShittingCreator,
 }].map((item, idx) => {
     const r = 110;
     const phase = 1 / 10;
@@ -68,6 +79,10 @@ export default {
                 this.isFolded = true;
                 this.selectorsVisible = false;
             }
+        },
+        selectType(type) {
+            this.showTypes();
+            this.$emit('open', type);
         },
     }
 };

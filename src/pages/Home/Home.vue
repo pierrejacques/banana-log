@@ -2,7 +2,7 @@
     <div class="home-page">
         <record-list />
         <create-btn @open="openDialog"/>
-        <dialog
+        <app-dialog
             :visible="visible"
             :component="component"
             @close="closeDialog"
@@ -19,7 +19,7 @@ export default {
     name: 'home',
     data() {
         return {
-            visible: true,
+            visible: false,
             component: null,
         };
     },
@@ -36,7 +36,7 @@ export default {
         },
         closeDialog() {
             this.visible = false;
-            this.title = '';
+            this.$emit('changeTitle', '');
         },
     }
 }
