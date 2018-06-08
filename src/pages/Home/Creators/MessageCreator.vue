@@ -5,6 +5,8 @@
 </template>
 
 <script>
+const type = 4;
+
 export default {
     name: 'message-creator',
 

@@ -5,6 +5,8 @@
 </template>
 
 <script>
+const type = 3;
+
 export default {
     name: 'outting-creator',
 }
