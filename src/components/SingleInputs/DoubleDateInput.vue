@@ -5,6 +5,8 @@
     </div>
 </template>
 
+// TODO: 样式优化
+
 <script>
 import { __, date2Str } from '@/utils/tools';
 
@@ -50,7 +52,7 @@ const dateSlots = [{
     divider: true,
     content: '年',
 }, {
-    flex: 2,
+    flex: 1,
     values: dateManager.getMMs(),
     textAlign: 'center',
     defaultIndex: 0,
@@ -59,7 +61,7 @@ const dateSlots = [{
     divider: true,
     content: '月',
 }, {
-    flex: 2,
+    flex: 1,
     values: dateManager.getDDs(new Date().getFullYear(), 1),
     defaultIndex: 0,
 }, {

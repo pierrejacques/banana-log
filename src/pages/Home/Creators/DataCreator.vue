@@ -1,11 +1,5 @@
 <template>
     <div class="data-creator">
-        <!-- <number-input 
-            v-model="value"
-            :max="10"
-            unit="g"
-            :accuracy="10"
-        /> -->
         <double-date-input
             v-model="value"
         />
