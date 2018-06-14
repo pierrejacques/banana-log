@@ -2,9 +2,9 @@
     <div class="data-creator">
         <number-input 
             v-model="value"
-            :max="1000"
+            :max="10"
             unit="g"
-            :accuracy=".1"
+            :accuracy="10"
         />
     </div>
 </template>
