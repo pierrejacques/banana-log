@@ -107,7 +107,7 @@ export default {
         width: @s;
         border-radius: 50%;
         color: white;
-        box-shadow: 0 0 0 0 #0000;
+        box-shadow: 0 2px 5px 0 #0003;
         transition: @t;
         .inside {
             transition: @t;

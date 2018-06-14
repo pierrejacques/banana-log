@@ -1,6 +1,6 @@
-const __ = (_v) => {
+export const __ = (_v) => {
     const v = +_v;
-    return v < 10 ? `0${v}` : v;
+    return v < 10 ? `0${v}` : v.toString();
 };
 
 export const date2Str = (d, options = {}) => {

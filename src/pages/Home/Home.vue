@@ -6,7 +6,7 @@
             v-model="visible"
             position="bottom"
         >
-            <div class="creator-wrapper"  @touchMove="e => e.preventDefault()">
+            <div class="creator-wrapper" >
                 <h1 class="creator-title">新建{{popupTitle}}记录</h1>
                 <component :is="component" class="creator"/>
                 <button class="submit-creation main-bg" @click="submit">

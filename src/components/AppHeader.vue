@@ -1,5 +1,5 @@
 <template>
-    <header class="header shadow main-bg" @touch-start="(e) => e.stopPragation()">
+    <header class="header shadow main-bg">
         <h1>{{title || '香蕉日记'}}</h1>
     </header> 
 </template>
