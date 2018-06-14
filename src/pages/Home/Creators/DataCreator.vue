@@ -1,8 +1,7 @@
 <template>
     <div class="data-creator">
-        <double-date-input
-            v-model="value"
-        />
+        {{value}}
+
     </div>
 </template>
 
@@ -10,6 +9,7 @@
 import axios from 'axios'
 import NumberInput from '@/components/SingleInputs/NumberInput'
 import DoubleDateInput from '@/components/SingleInputs/DoubleDateInput'
+import Selector from '@/components/SingleInputs/Selector'
 import Upload from './Uploader'
 
 const type = 0;
@@ -19,10 +19,11 @@ export default {
     components: {
         'number-input': NumberInput,
         'double-date-input': DoubleDateInput,
+        'selector': Selector,
     },
     data() {
         return {
-            value: new Date(),
+            value: 1,
             record: {
                 date: '',
                 components: [],
