@@ -1,44 +1,64 @@
 <template>
     <div class="data-creator">
-        <ul class="component-list">
-            <li v-for="(component, idx) in record.components" :key="idx">
-                {{component.name}} {{component.amount}}{{component.unit}}
-            </li>
-        </ul>
+        <number-input 
+            v-model="value"
+            :max="1000"
+            unit="g"
+            :accuracy=".1"
+        />
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import NumberInput from '@/components/SingleInputs/NumberInput'
 import Upload from './Uploader'
 
 const type = 0;
 
 export default {
     name: 'data-creator',
+    components: {
+        'number-input': NumberInput,
+    },
     data() {
         return {
+            value: 5,
             record: {
                 date: '',
                 components: [],
                 message: '',
             },
-            componentOptions: [],
+            dataTypes: [],
         };
     },
-    create() {
-        axios.get('component/get').then((res) => {
-            this.componentOptions = res.data.data;
+    computed: {
+        selectableTypes() {
+            return this.dataTypes;
+        },
+    },
+    created() {
+        axios.get('/statistic/type/get').then((res) => {
+            this.dataTypes = res.data.data;
         }).catch((err) => {});
     },
     methods: {
-        createComponentType(component) {
-            this.record.components.push(component);
-        },
+        selectType() {
+
+        }
     }
 }
 </script>
 
-<style>
+<style lang="less" scoped>
+.new-data {
+    text-align: left;
+    .new-data-form {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
 
 </style>

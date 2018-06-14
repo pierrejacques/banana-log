@@ -3,10 +3,11 @@
 import Vue from 'vue'
 import router from './router';
 import axios from 'axios';
-import MintUI from 'mint-ui'
+import MintUI from 'mint-ui';
+import 'mint-ui/lib/style.css';
 import App from './App'
 
-axios.defaults.baseURL = 'http://localhost:80/api/banana/';
+axios.defaults.baseURL = 'http://localhost:3000/api/banana/';
 
 Vue.config.productionTip = false;
 Vue.use(MintUI);

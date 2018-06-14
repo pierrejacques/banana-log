@@ -23,7 +23,6 @@
 import DataCreator from './Creators/DataCreator';
 import MealCreator from './Creators/MealCreator';
 import MessageCreator from './Creators/MessageCreator';
-import OuttingCreator from './Creators/OuttingCreator';
 import ShittingCreator from './Creators/ShittingCreator';
 
 const types = [{
@@ -39,22 +38,18 @@ const types = [{
     icon: 'shit',
     component: MessageCreator,
 }, {
-    name: '出行',
-    icon: 'location',
-    component: OuttingCreator,
-}, {
     name: '消息',
     icon: 'message',
     component: ShittingCreator,
 }].map((item, idx) => {
-    const r = 110;
-    const phase = 1 / 10;
-    const angle = Math.PI * (phase - 1 / 2 + (1 - 2 * phase) * idx / 4);
+    const r = 100;
+    const phase = 1 / 8;
+    const angle = Math.PI * (phase - 1 / 2 + (1 - 2 * phase) * idx / 3);
     return {
         ...item,
         style: {
-            bottom: `${r * Math.sin(angle) - 23}px`,
-            right: `${r * Math.cos(angle) - 23}px`,
+            bottom: `${r * Math.sin(angle) - 25}px`,
+            right: `${r * Math.cos(angle) - 25}px`,
         }
     };
 });
@@ -120,7 +115,7 @@ export default {
     }
     .type-selector {
         position: absolute;
-        @s: 45px;
+        @s: 50px;
         height: @s;
         width: @s;
         line-height: @s;
@@ -149,7 +144,7 @@ export default {
     right: 0;
     bottom: 25vh;
     .create-btn {
-        box-shadow: 0 0 0 150px #0007;
+        box-shadow: 0 0 0 140px #0007;
         .inside {
             transform: translate(-12px) rotate(45deg) scale(0.7);
         }
