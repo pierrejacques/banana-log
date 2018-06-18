@@ -13,7 +13,7 @@
             :key="idx" 
             :style="type.style"
             :name="type.name"
-            @click="selectType(type)"
+            @click="selectType(type.component)"
         />
         <div v-if="!isFolded" class="mask" @click="showTypes"/>
     </div>
@@ -75,9 +75,9 @@ export default {
                 this.selectorsVisible = false;
             }
         },
-        selectType(type) {
+        selectType(component) {
             this.showTypes();
-            this.$emit('open', type);
+            this.$emit('open', component);
         },
     }
 };

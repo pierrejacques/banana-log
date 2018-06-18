@@ -1,5 +1,12 @@
 <template>
-    <mt-picker :slots="slots" :visibleItemCount="5" valueKey="name" @change="onChange"/>
+    <div>
+        <mt-picker 
+            :slots="slots" 
+            :visibleItemCount="5" 
+            valueKey="label" 
+            @change="onChange"
+        />
+    </div>
 </template>
 
 <script>
@@ -12,29 +19,47 @@ export default {
         },
         options: {
             type: Array,
-            default: [],
+            default: () => [],
         },
         customContent: {
             type: String,
-            default: '自定义',
+            default: '新建',
+        },
+        hasCustom: {
+            type: Boolean,
+            default: false,
         },
     },
     data() {
         return {
-            slots: [{
-                values: [...this.options, { value: -1, name: this.customContent }],
-                textAlign: 'center',
-                defaultIndex: 0,
-            }],
+            index: 0,
         };
     },
-    created() {
+    computed: {
+        slots() {
+            const values = [...this.options];
+            if (this.hasCustom) {
+                values.push({
+                    value: -1,
+                    name: this.customContent,
+                });
+            }
+            return [{
+                values,
+                textAlign: 'center',
+                defaultIndex: this.index,
+            }];
+        }
+    },
+    mounted() {
         const index = this.options.findIndex(i => i.value === this.value);
-        this.slots[0].defaultIndex = index === -1 ? 0 : index;
+        this.index = index === -1 ? 0 : index;
     },
     methods: {
         onChange(_, values) {
-            this.$emit('input', values[0].value);
+            if (values[0]) {
+                this.$emit('input', values[0].value);
+            }
         }
     },
 }

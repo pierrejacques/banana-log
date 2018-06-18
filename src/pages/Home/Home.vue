@@ -1,33 +1,49 @@
 <template>
     <div class="home-page">
-        <record-list />
+        <record-list 
+            :records="records"
+            @fetchMore="fetchMore"
+        />
         <create-btn @open="openDialog"/>
         <mt-popup
             v-model="visible"
             position="bottom"
         >
-            <div class="creator-wrapper" >
-                <h1 class="creator-title">新建{{popupTitle}}记录</h1>
-                <component :is="component" class="creator"/>
-                <button class="submit-creation main-bg" @click="submit">
-                    确定
-                </button>
-                <a class="close-btn" @click="visible = false">
-                    <i class="iconfont icon-cancel"/>
-                </a>
-            </div>
+            <component :is="component" @submit="submit"/>
+            <a class="close-btn" @click="visible = false">
+                <i class="iconfont icon-cancel"/>
+            </a>
         </mt-popup>
     </div>
 </template>
 
 <script>
+import IPA, { From } from 'ipa.js';
+import { DateString } from '@/utils/ipa.type';
 import RecordList from './RecordList/RecordList';
 import CreateBtn from './CreateBtn';
+import axios from 'axios';
+
+const listSchema = new IPA([{
+    type: From(0, 1, 2, 3, 4),
+    name: String,
+    date: DateString,
+    message: String,
+    location: String,
+    components: [{
+        name: String,
+        unit: String,
+        amount: Number,
+    }],
+}]);
 
 export default {
     name: 'home',
     data() {
         return {
+            hasReachEnd: false,
+            index: 0,
+            records: [],
             visible: false,
             popupTitle: '',
             component: null,
@@ -38,45 +54,57 @@ export default {
         'create-btn': CreateBtn,
     },
     methods: {
-        openDialog({ component, name }) {
+        reFetch() {
+            this.hasReachEnd = false;
+            this.index = 0;
+            this.records = [];
+            this.fetchMore();
+        },
+        fetchMore() {
+            if (!this.hasReachEnd) {
+                axios.get('record/get', {
+                    params: {
+                        index: this.index,
+                        amount: 15,
+                    }
+                }).then((res) => {
+                    if (res.data.code !== 200) throw new Error(res.data.msg);
+                    const list = listSchema.guarantee(res.data.data.recordList);
+                    list.forEach(i => i.date = new Date(i.date));
+                    this.records = [...this.records, ...list];
+                    this.index = res.data.data.nextIndex;
+                    this.hasReachEnd = res.data.data.reachEnd;
+                }).catch((err) => {
+
+                });
+            }
+        },
+        openDialog(component) {
             this.visible = true;
             this.component = component;
-            this.popupTitle = name;
         },
-        submit() {
-
+        submit(data) {
+            axios.post('/record/create', data).then(res => {
+                if (res.data.code === 200) {
+                    this.visible = false;
+                    this.reFetch();
+                }
+            }).catch(err => {
+                console.log(err);
+            });
         }
-    }
+    },
+    watch: {
+        visible(v) {
+            if (!v) {
+                this.component = null;
+            }
+        }
+    },
 }
 </script>
 
 <style lang="less" scoped>
-@import url(../../assets/less/variables.less);
-
-.creator-wrapper {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    box-sizing: border-box;
-    width: 100vw;
-    min-height: 70vh;
-    background: white;
-    padding: 0 20px 20px;
-    .creator {
-        flex-grow: 1;
-    }
-    .creator-title {
-        font-size: 20px;
-        font-weight: 600;
-        line-height: @header-h;
-        border-bottom: 1px solid #eee;
-    }
-    .submit-creation {
-        border: none;
-        line-height: 45px;
-        font-size: 20px;
-        outline: none;
-    }
     .close-btn {
         position: absolute;
         top: 17px;
@@ -87,5 +115,4 @@ export default {
         }
 
     }
-}
 </style>
